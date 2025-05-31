@@ -1,0 +1,1 @@
+Removed: Chatbot.tsx, ChatDialog.tsx, ChatSuggestions.tsx, PDFChat.tsx, PDFChatRedesigned.tsx

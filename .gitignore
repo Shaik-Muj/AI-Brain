@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.env
+
+# Node.js
+node_modules/
+dist/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary folders
+temp_audio/
+temp_images/
+temp_pdfs/

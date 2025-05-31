@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Recommendations API</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #queryInput { width: 100%; padding: 10px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #results { margin-top: 20px; border: 1px solid #ddd; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Recommendations API Test</h1>
+    
+    <input type="text" id="queryInput" placeholder="Enter your query here" value="Tell me about AI hallucinations">
+    <button onclick="testRecommendations()">Get Recommendations</button>
+    
+    <div id="results">Results will appear here...</div>
+    
+    <script>
+        async function testRecommendations() {
+            const query = document.getElementById('queryInput').value;
+            const resultsDiv = document.getElementById('results');
+            
+            resultsDiv.innerHTML = 'Loading...';
+            const url = 'http://localhost:8000/recommendations';
+            resultsDiv.innerHTML += `<p>Sending request to: ${url}</p>`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                
+                resultsDiv.innerHTML += `<p>Status code: ${response.status}</p>`;
+                
+                if (!response.ok) {
+                    resultsDiv.innerHTML += `<p>Error: Server returned ${response.status} ${response.statusText}</p>`;
+                    return;
+                }
+                
+                const data = await response.json();
+                resultsDiv.innerHTML += `<p>Response received: ${JSON.stringify(data)}</p>`;
+                
+                if (data.recommendations && data.recommendations.length > 0) {
+                    let html = '<h2>Recommendations:</h2><ul>';
+                    data.recommendations.forEach(rec => {
+                        html += `<li>${rec}</li>`;
+                    });
+                    html += '</ul>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = 'No recommendations received.';
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `Error: ${error.message}`;
+                console.error('Error fetching recommendations:', error);
+            }
+        }
+    </script>
+</body>
+</html>

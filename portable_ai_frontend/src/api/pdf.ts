@@ -25,3 +25,42 @@ export const getPDFSummary = async () => {
   const res = await fetch(`${BASE_URL}/summary`);
   return res.json();
 };
+
+export const fetchGoogleResults = async (query: string): Promise<string[]> => {
+  const res = await fetch(`http://localhost:8000/google-search?query=${encodeURIComponent(query)}`);
+  return res.json();
+};
+
+export const fetchRAGResults = async (query: string): Promise<string[]> => {
+  const res = await fetch(`http://localhost:8000/rag-search`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query }),
+  });
+  return res.json();
+};
+
+export const fetchChatbotResponse = async (
+  query: string,
+  conversation: { role: string; content: string }[]
+): Promise<string> => {
+  try {
+    const res = await fetch(`http://localhost:8000/search/chatbot`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, conversation }), // Include conversation history
+    });
+
+    if (!res.ok) {
+      console.error("Chatbot API returned an error:", res.status, res.statusText);
+      throw new Error(`Chatbot API error: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    console.log("Chatbot API response data:", data);
+    return data.response || "No response from chatbot.";
+  } catch (err) {
+    console.error("Error in fetchChatbotResponse:", err);
+    throw err;
+  }
+};

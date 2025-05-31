@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Added useEffect
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import PromptEditor from "./components/PromptEditor";
@@ -7,9 +7,8 @@ import MultiModalTools from "./components/MultiModalTools";
 
 // Phase 6: Talk to PDF components
 import PDFUploader from "./components/PDFUploader";
-import PDFChat from "./components/PDFChat";
-import HighlightedText from "./components/HighlightedText";
-import SummaryExport from "./components/SummaryExport";
+// import HighlightedText from "./components/HighlightedText"; // No longer primary
+// import SummaryExport from "./components/SummaryExport"; // No longer primary
 
 const MODELS = ["openai", "ollama", "llama", "gemma"];
 
@@ -18,11 +17,14 @@ function App() {
   const [responses, setResponses] = useState<Record<string, string>>({});
   const [selectedModels, setSelectedModels] = useState<string[]>(MODELS);
   const [loadingModels, setLoadingModels] = useState<string[]>([]);
-
+  
   // Phase 6: PDF-specific state
   const [pdfText, setPdfText] = useState("");
-  const [pdfHighlights, setPdfHighlights] = useState<string[]>([]);
-  const [summaryPoints, setSummaryPoints] = useState<string[]>([]);
+
+  // Log pdfText when it changes
+  useEffect(() => {
+    console.log("App.tsx: pdfText state changed to:", pdfText);
+  }, [pdfText]);
 
   const handleToggleModel = (model: string) => {
     setSelectedModels((prev) =>
@@ -80,23 +82,20 @@ function App() {
 
           {/* ✅ Phase 6: PDF Tools */}
           <section className="space-y-4 bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold">Talk to a PDF</h2>
-
-            {/* Upload and extract PDF text */}
-            <PDFUploader onExtract={(text) => setPdfText(text)} />
-
-            {/* Ask questions about uploaded PDF */}
-            {typeof pdfText === "string" && pdfText.trim().length > 0 ? (
-              <>
-                <PDFChat
-                  pdfText={pdfText}
-                  onAnswerHighlight={(highlights) => setPdfHighlights(highlights)}
-                  onSummary={(points) => setSummaryPoints(points)}
-                />
-                <HighlightedText text={pdfText} highlights={pdfHighlights} />
-                <SummaryExport points={summaryPoints} />
-              </>
-            ) : null}
+            <h2 className="text-xl font-semibold">Talk to a PDF</h2>            {/* Upload and extract PDF text */}
+            <PDFUploader 
+              pdfText={pdfText} // Pass the pdfText state
+              onExtract={(text) => {
+              console.log("App.tsx: PDFUploader extracted text:", text); // Log extracted text
+              setPdfText(text);
+            }} />
+            
+            {/* The PDFChatRedesigned component is now rendered by PDFChatPopup, triggered from PDFUploader */}
+            {/* So, we no longer render it directly here. */}
+            {/* We can keep the conditional message for when no PDF is loaded, if desired. */}
+            {!(typeof pdfText === "string" && pdfText.trim().length > 0) && (
+              <p className="text-gray-500">Upload a PDF to start chatting with it.</p>
+            )}
           </section>
 
           {/* Prompt editor and results for general LLM prompts */}
@@ -109,6 +108,7 @@ function App() {
             responses={responses}
             loadingModels={loadingModels}
           />
+
         </main>
       </div>
     </div>
