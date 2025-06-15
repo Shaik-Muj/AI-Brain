@@ -1,4 +1,4 @@
-# Ptable brAIn Technical Documentation
+# AI-Brain Technical Documentation
 
 ## Tech Stack Overview
 
