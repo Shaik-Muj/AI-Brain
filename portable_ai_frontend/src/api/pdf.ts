@@ -3,13 +3,40 @@
 const BASE_URL = "http://localhost:8000/pdf"; // adjust if needed
 
 export const uploadPDF = async (file: File) => {
-  const formData = new FormData();
-  formData.append("file", file);
-  const res = await fetch(`${BASE_URL}/upload`, {
-    method: "POST",
-    body: formData,
-  });
-  return res.json();
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    
+    console.log("Uploading PDF:", file.name, "size:", file.size, "bytes");
+    
+    const res = await fetch(`${BASE_URL}/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error(`Failed to upload PDF: ${res.status} ${res.statusText}`, errorText);
+      throw new Error(`Failed to upload PDF: ${res.status} ${res.statusText}`);
+    }
+    
+    const data = await res.json();
+    console.log("PDF upload response:", data);
+    
+    // Validate that we got a proper PDF ID back
+    if (!data.pdf_id || typeof data.pdf_id !== 'string' || data.pdf_id.trim() === '') {
+      console.error("Invalid PDF ID received from server:", data.pdf_id);
+      throw new Error("Server did not return a valid PDF ID");
+    }
+    
+    // Log the success with the file ID for debugging
+    console.log(`PDF uploaded successfully. Server assigned ID: ${data.pdf_id}`);
+    
+    return data;
+  } catch (error) {
+    console.error("Error uploading PDF:", error);
+    throw error;
+  }
 };
 
 export async function askPDFQuestion(question: string, pdfText: string) {
@@ -24,6 +51,14 @@ export async function askPDFQuestion(question: string, pdfText: string) {
 export const getPDFSummary = async () => {
   const res = await fetch(`${BASE_URL}/summary`);
   return res.json();
+};
+
+export const getPDFById = async (pdfId: string) => {
+  const res = await fetch(`${BASE_URL}/get-pdf/${pdfId}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch PDF with ID: ${pdfId}`);
+  }
+  return res.blob();
 };
 
 export const fetchGoogleResults = async (query: string): Promise<string[]> => {

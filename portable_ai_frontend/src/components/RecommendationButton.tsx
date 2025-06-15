@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 
-const RecommendationButton: React.FC = () => {
+interface RecommendationButtonProps {
+  query?: string;
+  context?: string;
+  pdfId?: string;
+}
+
+const RecommendationButton: React.FC<RecommendationButtonProps> = ({ 
+  query = "AI technology and data processing",
+  context = "",
+  pdfId = ""
+}) => {
   const [loading, setLoading] = useState(false);
   const [recommendations, setRecommendations] = useState<string[]>([]);
   const [error, setError] = useState('');
@@ -10,13 +20,14 @@ const RecommendationButton: React.FC = () => {
     setError('');
     
     try {
-      // Use a simple fixed query for testing
-      const query = "AI technology and data processing";
-      
       const response = await fetch("http://localhost:8000/pdf/recommendations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ 
+          query,
+          context,
+          pdf_id: pdfId // Include PDF ID to get content-specific recommendations
+        })
       });
       
       if (!response.ok) {
