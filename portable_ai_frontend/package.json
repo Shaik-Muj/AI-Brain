@@ -3,13 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",  "scripts": {
-    "dev": "node copy-pdf-assets.js && node copy-pdf-worker.js && vite",
-    "build": "tsc -b && node copy-pdf-assets.js && node copy-pdf-worker.js && vite build",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tailwind:init": "tailwindcss init -p",
-    "copy-pdf-assets": "node copy-pdf-assets.js",
-    "copy-pdf-worker": "node copy-pdf-worker.js"
+    "tailwind:init": "tailwindcss init -p"
   },
   "dependencies": {
     "pdfjs-dist": "^4.8.69",

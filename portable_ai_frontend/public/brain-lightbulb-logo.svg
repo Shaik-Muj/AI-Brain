@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brain-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4FD1C5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#63B3ED;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="250" cy="250" r="240" fill="#3CC7EA" style="opacity: 0.2"/>
+  <g transform="translate(100, 100) scale(0.6)">
+    <path d="M250 100C350 100 400 150 400 250C400 350 350 400 250 400C150 400 100 350 100 250C100 150 150 100 250 100" 
+          fill="#FFB74D" stroke="#FF9800" stroke-width="12"/>
+    <path d="M250 150C325 150 350 200 350 250C350 300 325 350 250 350C175 350 150 300 150 250C150 200 175 150 250 150" 
+          fill="#FFA726" stroke="#F57C00" stroke-width="8"/>
+  </g>
+  <g transform="translate(0, 0)" style="opacity: 0.8">
+    <path d="M 380,120 L 420,80 M 380,80 L 420,120" stroke="white" stroke-width="12" stroke-linecap="round"/>
+    <path d="M 80,380 L 120,340 M 80,340 L 120,380" stroke="white" stroke-width="12" stroke-linecap="round"/>
+    <path d="M 380,380 L 420,340 M 380,340 L 420,380" stroke="white" stroke-width="12" stroke-linecap="round"/>
+  </g>
+</svg>

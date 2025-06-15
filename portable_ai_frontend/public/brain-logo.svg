@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background circle with gradient -->
+    <circle cx="400" cy="400" r="380" fill="url(#gradient)" opacity="0.1"/>
+    
+    <!-- Brain container -->
+    <g filter="url(#glow)">
+        <!-- Left hemisphere -->
+        <path d="M290 200C230 200 180 250 180 320C180 360 200 390 230 410C200 430 180 470 180 510C180 580 230 630 290 630C330 630 360 610 380 580C400 610 430 630 470 630C530 630 580 580 580 510C580 470 560 430 530 410C560 390 580 360 580 320C580 250 530 200 470 200C430 200 400 220 380 250C360 220 330 200 290 200Z" 
+              fill="url(#brain-gradient)"/>
+        
+        <!-- Brain folds -->
+        <path d="M380 250C360 220 330 200 290 200C230 200 180 250 180 320C180 360 200 390 230 410M380 250C400 220 430 200 470 200C530 200 580 250 580 320C580 360 560 390 530 410M380 250V580M230 410C200 430 180 470 180 510C180 580 230 630 290 630C330 630 360 610 380 580M530 410C560 430 580 470 580 510C580 580 530 630 470 630C430 630 400 610 380 580" 
+              stroke="#FF6B6B" stroke-width="15" stroke-linecap="round"/>
+              
+        <!-- Additional detail lines -->
+        <path d="M280 300C310 320 280 350 310 370M480 300C450 320 480 350 450 370M280 460C310 480 280 510 310 530M480 460C450 480 480 510 450 530" 
+              stroke="#FF6B6B" stroke-width="12" stroke-linecap="round"/>
+    </g>
+
+    <!-- Definitions -->
+    <defs>
+        <!-- Main gradient -->
+        <linearGradient id="brain-gradient" x1="180" y1="200" x2="580" y2="630">
+            <stop offset="0%" stop-color="#FFB88C"/>
+            <stop offset="100%" stop-color="#FF6B6B"/>
+        </linearGradient>
+        
+        <!-- Background gradient -->
+        <linearGradient id="gradient" x1="0" y1="0" x2="800" y2="800">
+            <stop offset="0%" stop-color="#4FD1C5"/>
+            <stop offset="100%" stop-color="#63B3ED"/>
+        </linearGradient>
+        
+        <!-- Glow effect -->
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+</svg>

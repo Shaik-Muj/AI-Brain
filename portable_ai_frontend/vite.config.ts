@@ -14,6 +14,7 @@ export default defineConfig({
     },
   },  build: {
     rollupOptions: {
+      external: ['pdfjs-dist/build/pdf.worker.mjs'],
       output: {
         manualChunks: id => {
           if (id.includes('pdfjs-dist')) {
@@ -22,7 +23,7 @@ export default defineConfig({
         }
       },
     },
-  },  define: {
+  },define: {
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
     },

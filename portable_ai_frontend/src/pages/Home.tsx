@@ -5,7 +5,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
-  const [responses, setResponses] = useState<Record<string, string>>({});
+  const [responses, setResponses] = useState<Record<string, string>>({})
 
   // Multi-chatbot handler
   const handlePromptSubmit = async () => {
@@ -41,24 +41,24 @@ const Home: React.FC = () => {
       {/* Floating shapes for visual interest */}
       <div className="absolute top-[20%] left-[10%] w-12 h-12 bg-[#38bdf8]/10 rounded-lg rotate-12 backdrop-blur-sm border border-[#38bdf8]/20 hidden lg:block"></div>
       <div className="absolute bottom-[15%] right-[12%] w-16 h-16 bg-[#ff5757]/10 rounded-lg -rotate-12 backdrop-blur-sm border border-[#ff5757]/20 hidden lg:block"></div>
-      
-      <div className="flex flex-col items-center mb-8 relative z-10">
-        <div className="bg-gradient-to-br from-[#23272f]/60 to-[#23272f]/20 p-4 rounded-full mb-5 backdrop-blur-lg border border-[#38bdf8]/20 shadow-lg shadow-[#38bdf8]/5">
-          <img 
-            src="/brain-icon.svg" 
-            alt="Brain Icon" 
-            className="w-20 h-20 object-contain"
-            onError={(e) => {
-              // Animated brain icon as fallback
-              (e.target as HTMLImageElement).outerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-20 h-20 text-[#38bdf8]">
-                  <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44A2.5 2.5 0 0 1 2 17.5v-15a2.5 2.5 0 0 1 5-.44A2.5 2.5 0 0 1 9.5 2Z"></path>
-                  <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44A2.5 2.5 0 0 0 22 17.5v-15a2.5 2.5 0 0 0-5-.44A2.5 2.5 0 0 0 14.5 2Z"></path>
-                </svg>
-              `;
-            }}
-          />
-        </div>
+        <div className="flex flex-col items-center mb-8 relative z-10">
+        <div className="logo-container logo-glow">
+          <div className="bg-gradient-to-br from-[#23272f]/60 to-[#23272f]/20 p-6 rounded-full mb-5 backdrop-blur-lg border border-[#38bdf8]/20 shadow-lg shadow-[#38bdf8]/5">
+            <img 
+              src="/brain-logo.svg" 
+              alt="Animated Brain Logo" 
+              className="w-32 h-32 object-contain logo-spin"
+              onError={(e) => {
+                // Animated brain icon as fallback
+                (e.target as HTMLImageElement).outerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-20 h-20 text-[#38bdf8]">
+                    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44A2.5 2.5 0 0 1 2 17.5v-15a2.5 2.5 0 0 1 5-.44A2.5 2.5 0 0 1 9.5 2Z"></path>
+                    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44A2.5 2.5 0 0 0 22 17.5v-15a2.5 2.5 0 0 0-5-.44A2.5 2.5 0 0 0 14.5 2Z"></path>
+                  </svg>
+                `;
+              }}
+            />
+          </div>        </div>
         <h1 className="text-5xl font-bold text-white tracking-wide mb-3 text-center" style={{ textShadow: '0 2px 10px rgba(56, 189, 248, 0.2)' }}>
           PORTABLE AI <span className="text-[#38bdf8]">BRAIN</span>
         </h1>
