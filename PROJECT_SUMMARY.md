@@ -1,4 +1,4 @@
-# Ptable brAIn - Project Summary
+# AI-Brain - Project Summary
 
 ## Project Overview
 An AI-powered PDF chat interface that allows users to interact with PDF documents through natural language, featuring smart text selection, context-aware responses, and multi-model LLM support.
